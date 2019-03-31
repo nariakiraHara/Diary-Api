@@ -15,45 +15,42 @@
     },
     "basePath": "/v1",
     "paths": {
-        "/object/": {
+        "/diary/": {
             "get": {
                 "tags": [
-                    "object"
+                    "diary"
                 ],
-                "description": "get all objects",
-                "operationId": "ObjectController.GetAll",
+                "description": "get all Diaries",
+                "operationId": "DiaryController.GetAll",
                 "responses": {
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.Object"
+                            "$ref": "#/definitions/models.Diary"
                         }
-                    },
-                    "403": {
-                        "description": ":objectId is empty"
                     }
                 }
             },
             "post": {
                 "tags": [
-                    "object"
+                    "diary"
                 ],
-                "description": "create object",
-                "operationId": "ObjectController.Create",
+                "description": "create diary",
+                "operationId": "DiaryController.CreateDiary",
                 "parameters": [
                     {
                         "in": "body",
                         "name": "body",
-                        "description": "The object content",
+                        "description": "body for diary content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.Object"
+                            "$ref": "#/definitions/models.diary"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "{string} models.Object.Id"
+                        "description": "{int} models.Diary.Id"
                     },
                     "403": {
                         "description": "body is empty"
@@ -61,196 +58,17 @@
                 }
             }
         },
-        "/object/{objectId}": {
+        "/diary/{id}": {
             "get": {
                 "tags": [
-                    "object"
+                    "diary"
                 ],
-                "description": "find object by objectid",
-                "operationId": "ObjectController.Get",
+                "description": "get diary by id",
+                "operationId": "DiaryController.Get",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "objectId",
-                        "description": "the objectid you want to get",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.Object"
-                        }
-                    },
-                    "403": {
-                        "description": ":objectId is empty"
-                    }
-                }
-            },
-            "put": {
-                "tags": [
-                    "object"
-                ],
-                "description": "update the object",
-                "operationId": "ObjectController.Update",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "objectId",
-                        "description": "The objectid you want to update",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "The body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Object"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.Object"
-                        }
-                    },
-                    "403": {
-                        "description": ":objectId is empty"
-                    }
-                }
-            },
-            "delete": {
-                "tags": [
-                    "object"
-                ],
-                "description": "delete the object",
-                "operationId": "ObjectController.Delete",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "objectId",
-                        "description": "The objectId you want to delete",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} delete success!"
-                    },
-                    "403": {
-                        "description": "objectId is empty"
-                    }
-                }
-            }
-        },
-        "/user/": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "description": "get all Users",
-                "operationId": "UserController.GetAll",
-                "responses": {
-                    "200": {
-                        "description": "",
-                        "schema": {
-                            "$ref": "#/definitions/models.User"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "user"
-                ],
-                "description": "create users",
-                "operationId": "UserController.CreateUser",
-                "parameters": [
-                    {
-                        "in": "body",
-                        "name": "body",
-                        "description": "body for user content",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.User"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{int} models.User.Id"
-                    },
-                    "403": {
-                        "description": "body is empty"
-                    }
-                }
-            }
-        },
-        "/user/login": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "description": "Logs user into the system",
-                "operationId": "UserController.Login",
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "username",
-                        "description": "The username for login",
-                        "required": true,
-                        "type": "string"
-                    },
-                    {
-                        "in": "query",
-                        "name": "password",
-                        "description": "The password for login",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "{string} login success"
-                    },
-                    "403": {
-                        "description": "user not exist"
-                    }
-                }
-            }
-        },
-        "/user/logout": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "description": "Logs out current logged in user session",
-                "operationId": "UserController.logout",
-                "responses": {
-                    "200": {
-                        "description": "{string} logout success"
-                    }
-                }
-            }
-        },
-        "/user/{uid}": {
-            "get": {
-                "tags": [
-                    "user"
-                ],
-                "description": "get user by uid",
-                "operationId": "UserController.Get",
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "uid",
+                        "name": "id",
                         "description": "The key for staticblock",
                         "required": true,
                         "type": "string"
@@ -260,24 +78,24 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/models.Diary"
                         }
                     },
                     "403": {
-                        "description": ":uid is empty"
+                        "description": ":id is empty"
                     }
                 }
             },
             "put": {
                 "tags": [
-                    "user"
+                    "diary"
                 ],
-                "description": "update the user",
-                "operationId": "UserController.Update",
+                "description": "update the diary",
+                "operationId": "DiaryController.Update",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "uid",
+                        "name": "id",
                         "description": "The uid you want to update",
                         "required": true,
                         "type": "string"
@@ -288,7 +106,7 @@
                         "description": "body for user content",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/models.Diary"
                         }
                     }
                 ],
@@ -296,24 +114,24 @@
                     "200": {
                         "description": "",
                         "schema": {
-                            "$ref": "#/definitions/models.User"
+                            "$ref": "#/definitions/models.Diary"
                         }
                     },
                     "403": {
-                        "description": ":uid is not int"
+                        "description": ":id is not int"
                     }
                 }
             },
             "delete": {
                 "tags": [
-                    "user"
+                    "diary"
                 ],
-                "description": "delete the user",
-                "operationId": "UserController.Delete",
+                "description": "delete the diary",
+                "operationId": "DiaryController.Delete",
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "uid",
+                        "name": "id",
                         "description": "The uid you want to delete",
                         "required": true,
                         "type": "string"
@@ -324,75 +142,50 @@
                         "description": "{string} delete success!"
                     },
                     "403": {
-                        "description": "uid is empty"
+                        "description": "id is empty"
                     }
                 }
             }
         }
     },
     "definitions": {
-        "models.Object": {
-            "title": "Object",
+        "models.Diary": {
+            "title": "Diary",
             "type": "object",
             "properties": {
-                "ObjectId": {
-                    "type": "string"
-                },
-                "PlayerName": {
-                    "type": "string"
-                },
-                "Score": {
-                    "type": "integer",
-                    "format": "int64"
-                }
-            }
-        },
-        "models.Profile": {
-            "title": "Profile",
-            "type": "object",
-            "properties": {
-                "Address": {
-                    "type": "string"
-                },
-                "Age": {
+                "IsActive": {
                     "type": "integer",
                     "format": "int64"
                 },
-                "Email": {
+                "Title": {
                     "type": "string"
                 },
-                "Gender": {
+                "content": {
                     "type": "string"
+                },
+                "created": {
+                    "type": "string",
+                    "format": "datetime"
+                },
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "updated": {
+                    "type": "string",
+                    "format": "datetime"
                 }
             }
         },
-        "models.User": {
-            "title": "User",
-            "type": "object",
-            "properties": {
-                "Id": {
-                    "type": "string"
-                },
-                "Password": {
-                    "type": "string"
-                },
-                "Profile": {
-                    "$ref": "#/definitions/models.Profile"
-                },
-                "Username": {
-                    "type": "string"
-                }
-            }
+        "models.diary": {
+            "title": "diary",
+            "type": "object"
         }
     },
     "tags": [
         {
-            "name": "object",
-            "description": "Operations about object\n"
-        },
-        {
-            "name": "user",
-            "description": "Operations about Users\n"
+            "name": "diary",
+            "description": "Operations about Diaries\n"
         }
     ]
 }
