@@ -75,11 +75,11 @@ func (d *DiaryController) Put() {
 	if id != 0 {
 		var diary models.Diary
 		json.Unmarshal(d.Ctx.Input.RequestBody, &diary)
-		uDiary, err := models.UpdateUser(id, &diary)
+		res, err := models.UpdateDiary(id, &diary)
 		if err != nil {
 			d.Data["json"] = err.Error()
 		} else {
-			d.Data["json"] = uDiary
+			d.Data["json"] = res
 		}
 	}
 	d.ServeJSON()

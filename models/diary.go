@@ -49,11 +49,18 @@ func GetAllDiary() []*Diary {
 	return DiaryRange
 }
 
-func UpdateUser(id int64, diary *Diary) (a *Diary, err error) {
-	if u, ok := DiaryList[id]; ok {
-		return u, nil
+func UpdateDiary(id int64, diary *Diary) (num int64, err error) {
+	o := orm.NewOrm()
+	d := Diary{ID: id}
+	if o.Read(&d) == nil {
+		d.Content = diary.Content
+		d.Title = diary.Title
+		d.Updated = time.Now()
+		if num, err := o.Update(&d, "Title", "Content", "Updated"); err == nil {
+			return num, nil
+		}
 	}
-	return nil, errors.New("Diary Not Exist")
+	return -1, errors.New("Diary Not Exist")
 }
 
 func DeleteDiary(id int64) (err error) {
