@@ -30,9 +30,9 @@ func AddDiary(diary *Diary) (res int64, err error) {
 	o.Using("diary")
 	diary.IsActive = 1
 	if res, err := o.Insert(diary); err != nil {
-		return res, nil
+		return res, err
 	}
-	return 0, errors.New("Faild")
+	return res, nil
 }
 
 func GetDiary(d *Diary) (err error) {
@@ -64,5 +64,9 @@ func UpdateDiary(id int64, diary *Diary) (num int64, err error) {
 }
 
 func DeleteDiary(id int64) (err error) {
+	o := orm.NewOrm()
+	if num, err := o.Delete(&Diary{ID: id}); num == 0 && err != nil {
+		return errors.New("Faild to Delite Diary")
+	}
 	return nil
 }

@@ -23,7 +23,7 @@ type DiaryController struct {
 func (d *DiaryController) Post() {
 	var diary models.Diary
 	json.Unmarshal(d.Ctx.Input.RequestBody, &diary)
-	if res, err := models.AddDiary(&diary); res != 0 && err != nil {
+	if res, err := models.AddDiary(&diary); res == 0 && err != nil {
 		d.Data["json"] = err
 	} else {
 		d.Data["json"] = diary
@@ -93,7 +93,9 @@ func (d *DiaryController) Put() {
 // @router /:id [delete]
 func (d *DiaryController) Delete() {
 	id, _ := strconv.ParseInt(d.GetString(":id"), 10, 64)
-	models.DeleteDiary(id)
+	if err := models.DeleteDiary(id); err != nil {
+		d.Data["json"] = err
+	}
 	d.Data["json"] = "delete success!"
 	d.ServeJSON()
 }
