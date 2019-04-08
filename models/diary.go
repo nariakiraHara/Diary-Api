@@ -14,6 +14,7 @@ var (
 
 func init() {
 	DiaryList = make(map[int64]*Diary)
+	orm.RegisterModel(new(Diary))
 }
 
 type Diary struct {

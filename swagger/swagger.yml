@@ -98,6 +98,85 @@ paths:
           description: '{string} delete success!'
         "403":
           description: id is empty
+  /user/:
+    post:
+      tags:
+      - user
+      description: create User
+      operationId: UserController.Create
+      parameters:
+      - in: body
+        name: body
+        description: body for User content
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      responses:
+        "201":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.User'
+        "403":
+          description: body is empty
+  /user/{id}:
+    get:
+      tags:
+      - user
+      description: get User by id
+      operationId: UserController.Get
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.User'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - user
+      description: update the User
+      operationId: UserController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for User content
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.User'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - user
+      description: delete the User
+      operationId: UserController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
 definitions:
   models.Diary:
     title: Diary
@@ -119,6 +198,33 @@ definitions:
       updated:
         type: string
         format: datetime
+  models.User:
+    title: User
+    type: object
+    properties:
+      Age:
+        type: integer
+        format: int64
+      Comment:
+        type: string
+      Email:
+        type: string
+      IsActive:
+        type: integer
+        format: int64
+      Name:
+        type: string
+      Password:
+        type: string
+      created:
+        type: string
+        format: datetime
+      id:
+        type: integer
+        format: int64
+      updated:
+        type: string
+        format: datetime
   models.diary:
     title: diary
     type: object
@@ -126,3 +232,6 @@ tags:
 - name: diary
   description: |
     Operations about Diaries
+- name: user
+  description: |
+    UserController operations for User

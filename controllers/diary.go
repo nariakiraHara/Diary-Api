@@ -3,7 +3,6 @@ package controllers
 import (
 	"diary-app/models"
 	"encoding/json"
-	"fmt"
 	"strconv"
 
 	"github.com/astaxie/beego"
@@ -48,8 +47,6 @@ func (d *DiaryController) GetAll() {
 // @Failure 403 :id is empty
 // @router /:id [get]
 func (d *DiaryController) Get() {
-	strID := d.GetString(":id")
-	fmt.Println(strID)
 	id, _ := strconv.ParseInt(d.GetString(":id"), 10, 64)
 	if id != 0 {
 		diary := models.Diary{ID: id}

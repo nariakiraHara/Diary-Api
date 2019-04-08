@@ -1,7 +1,6 @@
 package main
 
 import (
-	"diary-app/models"
 	_ "diary-app/routers"
 	"fmt"
 
@@ -17,7 +16,6 @@ func init() {
 	db := beego.AppConfig.String("mysqldb")
 	datasource := fmt.Sprintf("%s:%s@tcp(%s:3306)/%s?charset=utf8", user, pass, host, db)
 	orm.RegisterDataBase("default", "mysql", datasource, 30)
-	orm.RegisterModel(new(models.Diary))
 
 	//sync初期化時に同期をとる
 	err := orm.RunSyncdb("default", false, true)
