@@ -15,7 +15,6 @@ type User struct {
 	Name     string `orm:"size(128)"`
 	Email    string `orm:"size(128)"`
 	Password string `orm:"size(128)"`
-	Age      int64
 	IsActive int64
 	Comment  string    `orm:"null;size(16)"`
 	Created  time.Time `orm:"auto_now_add;type(datetime)" json:"created"`
@@ -56,6 +55,7 @@ func UpdateUserById(m *User) (err error) {
 	// ascertain id exists in the database
 	if err = o.Read(&v); err == nil {
 		var num int64
+		m.Updated = time.Now()
 		if num, err = o.Update(m); err == nil {
 			fmt.Println("Number of records updated in database:", num)
 			return nil
@@ -85,4 +85,16 @@ func PasswordHash(pw string) (hashPass string, err error) {
 		return "", err
 	}
 	return string(hash), nil
+}
+
+// AuthenticateUser... 認証処理
+func AuthenticateUser(u *User) (b bool) {
+	o := orm.NewOrm()
+	if hashPass, err := PasswordHash(u.Password); err != nil {
+		u.Password = hashPass
+		o.QueryTable(new(User)).Filter("ID", u.ID).Filter("Password", u.Password).Filter("IsActive", 1)
+	} else {
+		u = nil
+	}
+	return u != nil
 }

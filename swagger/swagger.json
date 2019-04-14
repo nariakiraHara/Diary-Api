@@ -147,6 +147,120 @@
                 }
             }
         },
+        "/login/": {
+            "post": {
+                "tags": [
+                    "logout"
+                ],
+                "description": "create Session",
+                "operationId": "SessionController.Create",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Session content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/login/{id}": {
+            "delete": {
+                "tags": [
+                    "logout"
+                ],
+                "description": "delete the Session",
+                "operationId": "SessionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
+        "/logout/": {
+            "post": {
+                "tags": [
+                    "logout"
+                ],
+                "description": "create Session",
+                "operationId": "SessionController.Create",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "body for Session content",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "403": {
+                        "description": "body is empty"
+                    }
+                }
+            }
+        },
+        "/logout/{id}": {
+            "delete": {
+                "tags": [
+                    "logout"
+                ],
+                "description": "delete the Session",
+                "operationId": "SessionController.Delete",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "description": "The id you want to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{string} delete success!"
+                    },
+                    "403": {
+                        "description": "id is empty"
+                    }
+                }
+            }
+        },
         "/user/": {
             "post": {
                 "tags": [
@@ -301,10 +415,6 @@
             "title": "User",
             "type": "object",
             "properties": {
-                "Age": {
-                    "type": "integer",
-                    "format": "int64"
-                },
                 "Comment": {
                     "type": "string"
                 },
@@ -348,6 +458,14 @@
         {
             "name": "user",
             "description": "UserController operations for User\n"
+        },
+        {
+            "name": "login",
+            "description": "SessionController operations for Session\n"
+        },
+        {
+            "name": "logout",
+            "description": "SessionController operations for Session\n"
         }
     ]
 }

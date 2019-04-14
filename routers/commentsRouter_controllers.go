@@ -52,6 +52,24 @@ func init() {
             Filters: nil,
             Params: nil})
 
+    beego.GlobalControllerRouter["diary-app/controllers:SessionController"] = append(beego.GlobalControllerRouter["diary-app/controllers:SessionController"],
+        beego.ControllerComments{
+            Method: "Post",
+            Router: `/`,
+            AllowHTTPMethods: []string{"post"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
+    beego.GlobalControllerRouter["diary-app/controllers:SessionController"] = append(beego.GlobalControllerRouter["diary-app/controllers:SessionController"],
+        beego.ControllerComments{
+            Method: "Delete",
+            Router: `/:id`,
+            AllowHTTPMethods: []string{"delete"},
+            MethodParams: param.Make(),
+            Filters: nil,
+            Params: nil})
+
     beego.GlobalControllerRouter["diary-app/controllers:UserController"] = append(beego.GlobalControllerRouter["diary-app/controllers:UserController"],
         beego.ControllerComments{
             Method: "Post",
